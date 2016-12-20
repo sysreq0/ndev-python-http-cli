@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, sys, wave, requests, time
+from sys import stdout
 from core import NDEVRequest, NDEVResponse, _get_language_input, red, green
 from time import sleep
 
@@ -351,12 +352,12 @@ class ASR(object):
 		total_chunks = 0
 		while data != '':
 			total_chunks += len(data)
-			sys.stdout.write("\r  Bytes Sent          %d/%d \t%d%% " % (total_chunks,total_size,100*total_chunks/total_size))
-			sys.stdout.flush()
+			stdout.write("\r  Bytes Sent          %d/%d \t%d%% " % (total_chunks,total_size,100*total_chunks/total_size))
+			stdout.flush()
 			sleep(ASR.send_chunk_delay)
 			yield data
 			data = file_to_play.readframes(ASR.chunk_size)
-		sys.stdout.write("\n\n")
+		stdout.write("\n\n")
 		
 	"""
 	generator file that will stream any given file. 
@@ -370,12 +371,12 @@ class ASR(object):
 		total_chunks = 0
 		while data != '':
 			total_chunks += len(data)
-			sys.stdout.write("\r  bytes sent: \t%d/%d \t%d%% " % (total_chunks,total_size,100*total_chunks/total_size))
-			sys.stdout.flush()
+			stdout.write("\r  bytes sent: \t%d/%d \t%d%% " % (total_chunks,total_size,100*total_chunks/total_size))
+			stdout.flush()
 			sleep(ASR.send_chunk_delay)
 			yield data
 			data = file_to_play.read(ASR.chunk_size)
-		sys.stdout.write("\n\n")
+		stdout.write("\n\n")
 		
 	"""
 	
